@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>Image Browser</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+   
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Add custom styles here */
         .thumbnail {
             width: 100px;
             height: 100px;
@@ -14,19 +15,19 @@
         }
     </style>
 </head>
-<body ng-controller="ImageController">
+<body ng-controller="ImageController" class="bg-gray-100 flex flex-col items-center justify-center h-screen">
 
-    <h1>Images</h1>
+    <h1 class="text-2xl mb-4">Images</h1>
 
-    <div>
+    <div class="grid grid-cols-10 gap-10 justify-items-center">
         <!-- Thumbnails -->
         <img ng-repeat="image in images" ng-src="{{image.thumbnail}}" class="thumbnail" ng-click="selectImage(image.full)">
     </div>
 
-    <div ng-show="selectedImage">
+    <div ng-show="selectedImage" class="mt-8">
         <!-- Selected Image -->
-        <h2>Selected Image</h2>
-        <img ng-src="{{selectedImage}}" style="max-width: 500px;">
+        <h2 class="text-xl mb-4">Selected Image</h2>
+        <img ng-src="{{selectedImage}}" class="max-w-lg">
     </div>
 
     <script>
@@ -34,7 +35,7 @@
             .controller('ImageController', ['$scope', '$http', function($scope, $http) {
                 $scope.images = [];
                 $scope.selectedImage = null;
-                var limit = 15; // Limit the number of pictures to fetch
+                var limit = 20; // Limit the number of pictures to fetch
 
                 // Fetch images from the API
                 $http.get('https://picsum.photos/v2/list?limit=' + limit)
